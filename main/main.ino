@@ -1,6 +1,9 @@
 #include <LiquidCrystal.h>
 #include "pitches.h"
 
+bool hasStartedPortable = false;
+bool hasStartedInstrument = false;
+int lastNote;
 const int trigPin = 11;
 const int echoPin = 12;
 const int buzzer = 10;
@@ -11,7 +14,7 @@ int index = 0;
 int melody[] = {NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4};
 int noteDurations[] = { 4, 8, 8, 4, 4, 4, 4, 4};
 
-int note[8] = {NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_A4, NOTE_B4, NOTE_C5};
+int note[8] = {NOTE_C4, NOTE_DS4, NOTE_F4, NOTE_FS4, NOTE_G4, NOTE_AS4, NOTE_C5, NOTE_DS5};
 String mode[] = {"Portable Mode", "instrument Mode"};
 
 LiquidCrystal lcd(4, 5, 6, 7, 8, 9);
@@ -42,22 +45,23 @@ void setup() {
 
 }
 void loop() {
-  distance = 200;
-  while (distance > 5) {
-    digitalWrite(trigPin, LOW);
-    delayMicroseconds(2000);
-    digitalWrite(trigPin, HIGH);
-    delayMicroseconds(1000);
-    digitalWrite(trigPin, LOW);
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2000);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(1000);
+  digitalWrite(trigPin, LOW);
 
-    duration = pulseIn(echoPin, HIGH);
-    distance  = duration / 29 / 2;
-    delay(500);
+  duration = pulseIn(echoPin, HIGH);
+  distance  = duration / 29 / 2;
+  delay(500);
+
+  if(distance < 5){
+    hasStartedPortable = true;
   }
-  if (index == 0) {
-    portable();
+  if (index == 0 && hasStartedPortable) {
+    portable(distance);
   }
-  else {
+  else if(index == 1 && hasStartedInstrument){
     instrument();
   }
 }
@@ -77,54 +81,42 @@ void cycle() {
 
 }
 
-void portable() {
-  lcd.clear();
-  lcd.print("now in port mode");
-  noTone(buzzer);
-  while (true) {
-    digitalWrite(trigPin, LOW);
-    delayMicroseconds(2000);
-    digitalWrite(trigPin, HIGH);
-    delayMicroseconds(1000);
-    digitalWrite(trigPin, LOW);
-
-    duration = pulseIn(echoPin, HIGH);
-    distance  = duration / 29;
-    int noteToPlay;
-    if (10 < distance && distance <= 19) {
-      noteToPlay = note[0];
-    }
-    else if (19 < distance && distance <= 26) {
-      noteToPlay = note[1];
-    }
-    else if (26 < distance && distance <= 33) {
-      noteToPlay = note[2];
-    }
-    else if (33 < distance && distance <= 40) {
-      noteToPlay = note[3];
-    }
-    else if (40 < distance && distance <= 47) {
-      noteToPlay = note[4];
-    }
-    else if (47 < distance && distance <= 54) {
-      noteToPlay = note[5];
-    }
-    else if (54 < distance && distance <= 61) {
-      noteToPlay = note[6];
-    }
-    else if (61 < distance && distance <= 68) {
-      noteToPlay = note[7];
-    }
-    else {
-      noteToPlay = 0;
-    }
-    if (noteToPlay != 0 ) {
-      tone(buzzer, noteToPlay, 100);
-    }
-    else{
-      noTone(buzzer);
-      }
+void portable(int distance) {
+  int noteToPlay;
+  if (10 < distance && distance <= 19) {
+    noteToPlay = note[0];
   }
+  else if (19 < distance && distance <= 26) {
+    noteToPlay = note[1];
+  }
+  else if (26 < distance && distance <= 33) {
+    noteToPlay = note[2];
+  }
+  else if (33 < distance && distance <= 40) {
+    noteToPlay = note[3];
+  }
+  else if (40 < distance && distance <= 47) {
+    noteToPlay = note[4];
+  }
+  else if (47 < distance && distance <= 54) {
+    noteToPlay = note[5];
+  }
+  else if (54 < distance && distance <= 61) {
+    noteToPlay = note[6];
+  }
+  else if (61 < distance && distance <= 68) {
+    noteToPlay = note[7];
+  }
+  else {
+    lastNote = NULL;
+  }
+  if (noteToPlay != NULL && noteToPlay != lastNote) {
+    tone(buzzer, noteToPlay, 500);
+  }
+  else {
+    noTone(buzzer);
+  }
+  lastNote = noteToPlay;
 }
 void instrument() {
   lcd.clear();
