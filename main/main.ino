@@ -11,7 +11,7 @@ int index = 0;
 int melody[] = {NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4};
 int noteDurations[] = { 4, 8, 8, 4, 4, 4, 4, 4};
 
-int notes[8] = {NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_A4, NOTE_B4, NOTE_C5};
+int note[8] = {NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_A4, NOTE_B4, NOTE_C5};
 String mode[] = {"Portable Mode", "instrument Mode"};
 
 LiquidCrystal lcd(4, 5, 6, 7, 8, 9);
@@ -80,14 +80,56 @@ void cycle() {
 void portable() {
   lcd.clear();
   lcd.print("now in port mode");
+  noTone(buzzer);
   while (true) {
+    digitalWrite(trigPin, LOW);
+    delayMicroseconds(2000);
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(1000);
+    digitalWrite(trigPin, LOW);
 
+    duration = pulseIn(echoPin, HIGH);
+    distance  = duration / 29;
+    int noteToPlay;
+    if (10 < distance && distance <= 19) {
+      noteToPlay = note[0];
+    }
+    else if (19 < distance && distance <= 26) {
+      noteToPlay = note[1];
+    }
+    else if (26 < distance && distance <= 33) {
+      noteToPlay = note[2];
+    }
+    else if (33 < distance && distance <= 40) {
+      noteToPlay = note[3];
+    }
+    else if (40 < distance && distance <= 47) {
+      noteToPlay = note[4];
+    }
+    else if (47 < distance && distance <= 54) {
+      noteToPlay = note[5];
+    }
+    else if (54 < distance && distance <= 61) {
+      noteToPlay = note[6];
+    }
+    else if (61 < distance && distance <= 68) {
+      noteToPlay = note[7];
+    }
+    else {
+      noteToPlay = 0;
+    }
+    if (noteToPlay != 0 ) {
+      tone(buzzer, noteToPlay, 100);
+    }
+    else{
+      noTone(buzzer);
+      }
   }
 }
 void instrument() {
   lcd.clear();
   lcd.print("now in inst mode");
-  while(true){
-    
-    }
+  while (true) {
+
+  }
 }
