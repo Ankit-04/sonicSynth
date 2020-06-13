@@ -3,15 +3,24 @@
 
 const int trigPin = 11;
 const int echoPin = 12;
-const int buzzer = 10;
-const int button = 2;
 long duration;
 int distance;
+
+const int buzzer = 10;
+const int delayTime = 130;
+const int interval = 7;
+int noteToPlay;
+String noteToSend;
+
+const int button = 2;
 int index = 0;
-int melody[] = {NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4};
-int noteDurations[] = { 4, 8, 8, 4, 4, 4, 4, 4};
+
+
+int melody[] = {NOTE_E4, NOTE_E4, 0, NOTE_E4 , 0, NOTE_C4, NOTE_E4, NOTE_G4, 0, NOTE_G3};
+int noteDurations[] = { 8, 8, 8, 8, 8, 8, 4, 4, 4, 4};
 
 int note[8] = {NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_A4, NOTE_B4, NOTE_C5};
+String notes[8] = {"C4","D4","E4","F4","G4","A4","B4","C5"};
 String mode[] = {"Portable Mode", "instrument Mode"};
 
 LiquidCrystal lcd(4, 5, 6, 7, 8, 9);
@@ -30,7 +39,7 @@ void setup() {
   lcd.setCursor(0, 1);
   lcd.print(mode[index]);
 
-  for (int thisNote = 0; thisNote < 8; thisNote++) {
+  for (int thisNote = 0; thisNote < 10; thisNote++) {
 
     int noteDuration = 1000 / noteDurations[thisNote];
     tone(buzzer, melody[thisNote], noteDuration);
@@ -41,6 +50,7 @@ void setup() {
   }
 
 }
+
 void loop() {
   distance = 200;
   while (distance > 5) {
@@ -77,10 +87,11 @@ void cycle() {
 
 }
 
-void portable() {
+void instrument() {
   lcd.clear();
-  lcd.print("now in port mode");
+  lcd.print("now in inst mode");
   noTone(buzzer);
+  detachInterrupt(digitalPinToInterrupt(button));
   while (true) {
     digitalWrite(trigPin, LOW);
     delayMicroseconds(2000);
@@ -89,47 +100,86 @@ void portable() {
     digitalWrite(trigPin, LOW);
 
     duration = pulseIn(echoPin, HIGH);
-    distance  = duration / 29;
-    int noteToPlay;
-    if (10 < distance && distance <= 19) {
+    distance  = duration / 29 / 2;
+    if (interval * 0 < distance && distance <= interval * 1) {
+      noteToSend = notes[0];
+    }
+    else if (interval * 1 < distance && distance <= interval * 2) {
+      noteToSend = notes[1];
+    }
+    else if (interval * 2.5 < distance && distance <= interval * 3) {
+      noteToSend = notes[2];
+    }
+    else if (interval * 3.5 < distance && distance <= interval * 4) {
+      noteToSend = notes[3];
+    }
+    else if (interval * 4.5 < distance && distance <= interval * 5) {
+      noteToSend = notes[4];
+    }
+    else if (interval * 5.5 < distance && distance <= interval * 6) {
+      noteToSend = notes[5];
+    }
+    else if (interval * 6.5 < distance && distance <= interval * 7) {
+      noteToSend = notes[6];
+    }
+    else if (interval * 7.5 < distance && distance <= interval * 8) {
+      noteToSend = notes[7];
+    }
+    else {
+      noteToSend = "0";
+    }
+    if (noteToSend != 0 ) {
+      Serial.print(noteToSend);
+      delay(500);
+    }
+  }
+}
+void portable() {
+  lcd.clear();
+  lcd.print("now in port mode");
+  detachInterrupt(digitalPinToInterrupt(button));
+  while (true) {
+    digitalWrite(trigPin, LOW);
+    delayMicroseconds(2000);
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(1000);
+    digitalWrite(trigPin, LOW);
+
+    duration = pulseIn(echoPin, HIGH);
+    distance  = duration / 29 / 2;
+    if (interval * 0 < distance && distance <= interval * 1) {
       noteToPlay = note[0];
     }
-    else if (19 < distance && distance <= 26) {
+    else if (interval * 1 < distance && distance <= interval * 2) {
       noteToPlay = note[1];
     }
-    else if (26 < distance && distance <= 33) {
+    else if (interval * 2.5 < distance && distance <= interval * 3) {
       noteToPlay = note[2];
     }
-    else if (33 < distance && distance <= 40) {
+    else if (interval * 3.5 < distance && distance <= interval * 4) {
       noteToPlay = note[3];
     }
-    else if (40 < distance && distance <= 47) {
+    else if (interval * 4.5 < distance && distance <= interval * 5) {
       noteToPlay = note[4];
     }
-    else if (47 < distance && distance <= 54) {
+    else if (interval * 5.5 < distance && distance <= interval * 6) {
       noteToPlay = note[5];
     }
-    else if (54 < distance && distance <= 61) {
+    else if (interval * 6.5 < distance && distance <= interval * 7) {
       noteToPlay = note[6];
     }
-    else if (61 < distance && distance <= 68) {
+    else if (interval * 7.5 < distance && distance <= interval * 8) {
       noteToPlay = note[7];
     }
     else {
       noteToPlay = 0;
     }
     if (noteToPlay != 0 ) {
-      tone(buzzer, noteToPlay, 100);
+      tone(buzzer, noteToPlay, 200);
+      delay(100);
     }
-    else{
+    else {
       noTone(buzzer);
-      }
-  }
-}
-void instrument() {
-  lcd.clear();
-  lcd.print("now in inst mode");
-  while (true) {
-
+    }
   }
 }
