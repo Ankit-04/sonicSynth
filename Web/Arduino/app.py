@@ -1,7 +1,5 @@
-import mingus.core.notes as notes
-from playsound import playsound
 from flask import Flask
-import simpleaudio as sa
+#import simpleaudio as sa
 import serial
 
 app = Flask(__name__)
@@ -32,18 +30,16 @@ def startNotes(instrument):
 
 
 def serial_input():
-    sr = serial.Serial('COM3', 9600)
-    sr.flushInput()
+    ser = serial.Serial('COM3')
+    ser.flushInput()
 
     while True:
         try:
-            if (sr.is_open):
-                sr_bytes = sr.readline()
-                decoded_bytes = float(sr_bytes[0:len(sr_bytes) -
-                                                2].decode("utf-8"))
-                print(decoded_bytes)
+            ser_bytes = ser.readline()
+            ser_bytes = ser_bytes.decode()
+            print(ser_bytes)
         except:
-            print("Error")
+            print("Keyboard Interrupt")
             break
 
 serial_input()

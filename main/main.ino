@@ -128,9 +128,9 @@ void instrument() {
     else {
       noteToSend = "0";
     }
-    if (noteToSend != 0 ) {
-      Serial.print(noteToSend);
-      delay(500);
+    if (noteToSend != "0" ) {
+      Serial.println(noteToSend);
+      delay(100);
     }
   }
 }
