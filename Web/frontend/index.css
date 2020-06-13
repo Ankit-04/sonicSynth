@@ -1,24 +1,32 @@
-.background{
+.background {
     width: 100vw;
     height: 100vh;
-    background-color: #a354b0;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative;
+    position: absolute;
+    z-index: 1;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-.title{
-    padding-left: 1vw;
-    height: 20vh;
+.title {
+    padding-left: 2vw;
+    height: 15vh;
     width: 100vw;
     position: relative;
+    background-color: #812a8b;
 }
 
-.subContainer{
-    height: 75vh;
+.titleSubContainer {
+    z-index: 2;
+    position: relative;
+}
+
+.subContainer {
+    height: 80vh;
     width: 100vw;
     display: flex;
     justify-content: center;
@@ -27,148 +35,148 @@
     position: relative;
 }
 
-.carousel{
+.carousel {
     width: 50%;
-    background-color: #a354b0;
     position: relative;
     align-items: stretch;
     justify-content: center;
     display: flex;
 }
 
-.footer{
+.footer {
     height: 5vh;
     width: 100vw;
     background-color: black;
+    position: relative;
+    z-index: 99;
 }
 
-.controls{
+.controls {
     width: 50%;
-    background-color: #a354b0;
     position: relative;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Oswald');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-*
-{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-.titleText{
+.titleText {
     font-size: 6vw;
     font-family: 'Montserrat', 'sans-serif';
     color: white;
+    z-index: 2;
 }
 
-body
-{
-  background:radial-gradient(ellipse at bottom left, #000, #333);
-  font-family:'Oswald';
-  height:100vh;
-  overflow:hidden;
-  user-select:none;
+body {
+    background: radial-gradient(ellipse at bottom left, #000, #333);
+    font-family: 'Oswald';
+    height: 100vh;
+    overflow: hidden;
+    user-select: none;
 }
 
-.container
-{
+.container {
+    z-index: 2;
     position: relative;
-  display:flex;
-  flex-direction:row-reverse;
-  height: 100%;
-  justify-content:center;
-  width:80%;
-  align-items: center;
+    display: flex;
+    flex-direction: row-reverse;
+    height: 100%;
+    justify-content: center;
+    width: 60%;
+    align-items: center;
 }
 
-.item
-{
-  cursor:grab;
-  height:80%;
-  padding:60px;
-  position:absolute;
-  touch-action:none;
-  transition:transform .5s;
-  max-width:30vw;
-  width:100%;
+.item {
+    cursor: grab;
+    height: 80%;
+    padding: 60px;
+    position: absolute;
+    touch-action: none;
+    transition: transform .5s;
+    max-width: 30vw;
+    width: 80%;
 }
 
-.sliding .item
-{
-  transition:none;
+.sliding .item {
+    transition: none;
 }
 
-.card
-{
-  align-items:center;
-  background:#eee;
-  color:#888;
-  display:flex;
-  font-size:30vh;
-  height:100%;
-  justify-content:center;
-  padding:20px;
-  position: relative;
-  pointer-events:none;
-  transition:box-shadow .3s;
-  width:100%;
+.card {
+    align-items: center;
+    background: #a839b0;
+    color: white;
+    display: flex;
+    font-size: 30vh;
+    height: 100%;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    pointer-events: none;
+    transition: box-shadow .3s;
+    width: 100%;
 }
 
 .item:last-child .card:before,
-.item:last-child .card:after
-{
-  content:'';
-  display:block;
-  height:7px;
-  position:absolute;
+.item:last-child .card:after {
+    content: '';
+    display: block;
+    height: 7px;
+    position: absolute;
 }
 
-.item:last-child .card:before
-{
-  background:rgba(255,255,255,.6);
-  bottom:-7px;
-  left:4%;
-  width:92%;
+.item:last-child .card:before {
+    background: #553458;
+    bottom: -7px;
+    left: 4%;
+    width: 92%;
 }
 
-.item:last-child .card:after
-{
-  background:rgba(255,255,255,.2);
-  bottom:-14px;
-  left:7%;
-  width:86%;
+.item:last-child .card:after {
+    background: #553458;
+    bottom: -14px;
+    left: 7%;
+    width: 86%;
 }
 
-.active
-{
-  z-index:2 !important;
+.active {
+    z-index: 2 !important;
 }
 
-.next
-{
-  z-index:1 !important;
+.next {
+    z-index: 1 !important;
 }
 
-.active .card
-{
-  box-shadow:0 0 10px #000;
+.active .card {
+    box-shadow: 0 0 10px #553458;
 }
 
-.indicator
-{
-  animation:move 1s infinite ease-in-out;
-  bottom:20px;
-  color:#ccc;
-  font-size:5vh;
-  left:20px;
-  position:absolute;
-  z-index:10;
+.indicator {
+    animation: move 1s infinite ease-in-out;
+    bottom: 20px;
+    color: #ccc;
+    font-size: 5vh;
+    left: 20px;
+    position: absolute;
+    z-index: 10;
 }
 
-@keyframes move
-{
-  0% { transform:translateX(0); }
-  50% { transform:translateX(20%); }
+@keyframes move {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(20%);
+    }
 }
+
+canvas {
+    position: absolute;
+    z-index: 1;
+}
+
+
+/* ---- particles.js container ---- */
