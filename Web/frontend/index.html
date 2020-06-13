@@ -9,13 +9,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-    <script type="module" src="milsymbol-2.0.0/src/milsymbol.js"></script>
 </head>
 
 <body>
     <div class="background" id="particles-js">
         <div class="title">
             <div class="titleSubContainer">
+                <img class=titleImage src='./Assets/sound-recording-and-reproduction-wave-studio-monitor-digital-audio-acoustic-wave-png-1920_597.png'></img>
                 <h1 class=titleText>SOUND SYNTH</h1>
             </div>
         </div>
@@ -23,29 +23,33 @@
             <div class="carousel">
                 <div class="container">
                     <div class="item">
-                        <div class="card">1
-                            <div class="indicator">&#11207; SLIDE</div>
+                        <div class="card">
+                            <img class=cardImage src='./Assets/Piano.PNG.png'> Piano
                         </div>
                     </div>
                     <div class="item">
-                        <div class="card">2</div>
+                        <div class="card">
+                            <img class=cardImage src='./Assets/AcousticGuitar.png'> Guitar
+                        </div>
                     </div>
                     <div class="item">
-                        <div class="card">3</div>
-                    </div>
-                    <div class="item">
-                        <div class="card">4</div>
-                    </div>
-                    <div class="item">
-                        <div class="card">5</div>
+                        <div class="card">
+                            <img class=cardImage src='./Assets/813-8136384_xylophone-hd-png-pluspng-xylophone.png'> Xylophone
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="controls">
-                Controls
+                <button class=customButton id=success>Play</button>
+                <button class=customButton id=error disabled>Stop</button>
+            </div>
+            <div class="sheetMusic">
+                Sheet Music
             </div>
         </div>
-        <div class="footer"></div>
+        <div class="footer">
+            <h1 class="footerText">Same Home Different Hacks</h1>
+        </div>
     </div>
     <script src="index.js"></script>
 </body>

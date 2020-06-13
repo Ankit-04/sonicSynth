@@ -14,19 +14,37 @@
 
 .title {
     padding-left: 2vw;
-    height: 15vh;
+    height: 10vh;
     width: 100vw;
     position: relative;
     background-color: #812a8b;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.imageContainer {
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    position: absolute;
+    z-index: 8;
+}
+
+.titleImage {
+    max-height: 10vh;
+    margin-right: 1vw;
 }
 
 .titleSubContainer {
     z-index: 2;
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .subContainer {
-    height: 80vh;
+    height: 88vh;
     width: 100vw;
     display: flex;
     justify-content: center;
@@ -36,7 +54,7 @@
 }
 
 .carousel {
-    width: 50%;
+    width: 40%;
     position: relative;
     align-items: stretch;
     justify-content: center;
@@ -49,11 +67,48 @@
     background-color: black;
     position: relative;
     z-index: 99;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 2vw;
+    align-items: center;
 }
 
 .controls {
-    width: 50%;
+    width: 20%;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.sheetMusic {
+    width: 40%;
+}
+
+.customButton {
+    width: 75%;
+    border-radius: 4vw;
+    height: 8vh;
+    font-family: 'Montserrat';
+    font-size: 4vh;
+    font-weight: 700;
+    margin: 3vh;
+    position: relative;
+    z-index: 8;
+    color: black
+}
+
+.cardImage {
+    max-width: 15vw;
+}
+
+#success {
+    background-color: greenyellow;
+}
+
+#error {
+    background-color: red;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Oswald');
@@ -64,11 +119,19 @@
     padding: 0;
 }
 
+.footerText {
+    color: white;
+    font-family: 'Montserrat';
+    font-size: 1vw;
+    font-weight: lighter;
+}
+
 .titleText {
-    font-size: 6vw;
+    font-size: 3vw;
+    font-weight: lighter;
     font-family: 'Montserrat', 'sans-serif';
     color: white;
-    z-index: 2;
+    vertical-align: center;
 }
 
 body {
@@ -86,7 +149,7 @@ body {
     flex-direction: row-reverse;
     height: 100%;
     justify-content: center;
-    width: 60%;
+    width: 80%;
     align-items: center;
 }
 
@@ -110,9 +173,11 @@ body {
     background: #a839b0;
     color: white;
     display: flex;
-    font-size: 30vh;
+    flex-direction: column;
+    font-size: 7vh;
     height: 100%;
-    justify-content: center;
+    font-family: 'Montserrat';
+    justify-content: space-around;
     padding: 20px;
     position: relative;
     pointer-events: none;

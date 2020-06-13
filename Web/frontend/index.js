@@ -204,5 +204,3 @@ $(function() {
     };
     requestAnimationFrame(update);
 });
-
-export var instrument;
