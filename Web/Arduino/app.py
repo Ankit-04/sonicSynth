@@ -1,5 +1,5 @@
 from flask import Flask
-#import simpleaudio as sa
+import simpleaudio as sa
 import serial
 
 app = Flask(__name__)
@@ -26,20 +26,19 @@ def startNotes(instrument):
     play_obj = wave_obj.play()
     wave_obj = sa.WaveObject.from_wave_file(pianoNotes.get("D4"))
     play_obj = wave_obj.play()
-    play_obj.wait_done()  # Wait until sound has finished playing
 
 
-def serial_input():
-    ser = serial.Serial('COM3')
-    ser.flushInput()
+# def serial_input():
+#     ser = serial.Serial('COM3')
+#     ser.flushInput()
 
-    while True:
-        try:
-            ser_bytes = ser.readline()
-            ser_bytes = ser_bytes.decode()
-            print(ser_bytes)
-        except:
-            print("Keyboard Interrupt")
-            break
+#     while True:
+#         try:
+#             ser_bytes = ser.readline()
+#             ser_bytes = ser_bytes.decode()
+#             print(ser_bytes)
+#         except:
+#             print("Keyboard Interrupt")
+#             break
 
-serial_input()
+# serial_input()

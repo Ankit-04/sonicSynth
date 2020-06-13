@@ -41,10 +41,6 @@ class Caroustack {
         this.angle = this.delta / 100;
         this.scaling = 1 - Math.abs(this.delta) / 5000;
 
-        // limit direction on first and last items
-        if (Math.sign(this.delta) > 0 && this.currentSlide === this.items.length - 1) return;
-        else if (Math.sign(this.delta) < 0 && this.currentSlide === 0) return;
-
         // set different slide if right or left
         let slide = this.tempSlide;
         this.tempSlide = this.delta < 0 ? Math.max(this.currentSlide - 1, 0) : this.currentSlide;
@@ -74,16 +70,35 @@ class Caroustack {
         });
 
         // set current slide
-        this.currentSlide = this.delta > 0 ? Math.min(this.tempSlide + 1, this.items.length - 1) : this.tempSlide;
+        this.currentSlide = this.delta > 0 ? this.tempSlide + 1 : this.tempSlide;
+        if (this.currentSlide === this.items.length) {
+            this.currentSlide = 0;
+        }
         this.items[this.currentSlide].classList.add('active');
 
         // set next slide
         this.nextSlide = Math.min(this.currentSlide + 1, this.items.length - 1);
         this.items[this.nextSlide].classList.add('next');
     }
-}
 
+    getCurrentSlide() {
+        return this.currentSlide;
+    }
+}
 new Caroustack();
+
+var c = new Caroustack();
+
+function playClick() {
+    const instruments = {
+        1: "Piano",
+        2: "Guitar",
+        3: "Xylophone"
+    }
+    const instrument = instruments[this.c.currentSlide + 1];
+
+    fetch(`http://localhost:5000/${instrument}`)
+}
 
 
 $(function() {
