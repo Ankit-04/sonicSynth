@@ -48,6 +48,7 @@ def serial_input():
     notes = []
     while True:
         if(not getattr(t, "do_run")):
+            t.notes = notes
             continue
         try:
             ser_bytes = ser.readline()
@@ -60,7 +61,6 @@ def serial_input():
                 continue
             instrument = getattr(t, "instrument", "Piano")
             notes.append(ser_bytes)
-            t.notes = notes
             if instrument == "Piano":
                 wave_obj = sa.WaveObject.from_wave_file(pianoNotes.get(ser_bytes[0]))
                 play_obj = wave_obj.play()  
@@ -86,7 +86,8 @@ def stopPlaying():
     ser.flushInput()
     print(x.isAlive())
     x.do_run = False
-    notes = getattr(x, notes)
+    n = getattr(x, "notes")
+    print(n)
     print(x.isAlive())
     return "stopped"
 
