@@ -1,16 +1,19 @@
 from flask import Flask
+from flask import send_file, send_from_directory, safe_join, abort
+from flask_cors import CORS
 import simpleaudio as sa
 import serial
 import mingus.extra.lilypond as lilypond
 import mingus
 import threading
 from multiprocessing import Process
+import time
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
-
+CORS(app)
 path = "./Assets/Notes/"
-#ser = serial.Serial('COM3')
+ser = serial.Serial('COM3')
 
 pianoNotes = {
     "C": path + "C.wav",
@@ -89,14 +92,15 @@ def stopPlaying():
     ser.flushInput()
     x.do_run = False
     n = getattr(x, "notes")
+    print(n)
     b = mingus.containers.Bar()
     track = mingus.containers.Track()
     for i in n:
         track.add_notes(i)
     trackString = lilypond.from_Track(track)
     lilypond.to_png(trackString, "MasterPiece")
-    lilypond.to_png(trackString, "MyFirstBar")
-    return "stopped"
+    time.sleep(2)
+    return send_file('MasterPiece.png', mimetype='image/PNG') 
 
 @app.route("/<instrument>")
 def startNotes(instrument):
@@ -116,4 +120,4 @@ def testingLilypond():
     for i in n:
         track.add_notes(i)
     trackString = lilypond.from_Track(track)
-    lilypond.to_png(trackString, "MasterPiece")
+    lilypond.to_pdf(trackString, "Piece")
