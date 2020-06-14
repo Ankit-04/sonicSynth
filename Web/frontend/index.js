@@ -108,10 +108,11 @@ function stopPlaying() {
             var imageUrl = urlCreator.createObjectURL(image);
             console.log(imageUrl)
             document.getElementById("sheetMusic").src = imageUrl;
-        })
+            document.getElementById("sheet").href = imageUrl
+        });
 }
 
-$(function () {
+$(function() {
     particlesJS("particles-js", {
         "particles": {
             "number": {
@@ -223,8 +224,8 @@ $(function () {
         "retina_detect": true
     });
     var update;
-    update = function () {
-        if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) { }
+    update = function() {
+        if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {}
         requestAnimationFrame(update);
     };
     requestAnimationFrame(update);

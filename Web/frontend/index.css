@@ -115,6 +115,14 @@
     background-color: red;
 }
 
+#neutral {
+    background-color: lightseagreen;
+}
+
+#sheet {
+    width: 100%;
+}
+
 @import url('https://fonts.googleapis.com/css?family=Oswald');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 * {
