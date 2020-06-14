@@ -1,12 +1,13 @@
 from flask import Flask
 import simpleaudio as sa
 import serial
+import threading
+from multiprocessing import Process
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
 path = "./Assets/Notes/"
-stop = True
 ser = serial.Serial('COM3')
 
 pianoNotes = {
@@ -39,29 +40,23 @@ xylophoneNotes = {
     "A": path + "A_Drum.wav",
     "B": path + "B_Drum.wav",
     "H": path + "C1_Drum.wav"
-
 }
-@app.route('/stop')
-def stopPlaying():
-    stop = True   
-    ser.flushInput()
-
-@app.route("/<instrument>")
-def startNotes(instrument):
-    print(instrument)
-    
-    ser.flushInput()
-    stop = False
-    while not stop:
+def serial_input():
+    t = threading.currentThread()
+    while True:
+        if(not getattr(t, "do_run")):
+            continue
         try:
             ser_bytes = ser.readline()
             ser_bytes = ser_bytes.decode()
             ser_bytes.rstrip()
             ser_bytes = str(ser_bytes)
-            print(ser_bytes[0])
-
-            print(pianoNotes.get)
-            if(instrument == "Piano"):
+            if(len(ser_bytes) >= 1):
+                ser_bytes = ser_bytes[0]
+            else:
+                continue
+            instrument = getattr(t, "instrument", "Piano")
+            if instrument == "Piano":
                 wave_obj = sa.WaveObject.from_wave_file(pianoNotes.get(ser_bytes[0]))
                 play_obj = wave_obj.play()  
             elif instrument == "Xylophone":
@@ -71,13 +66,31 @@ def startNotes(instrument):
                 wave_obj = sa.WaveObject.from_wave_file(guitarNotes.get(ser_bytes[0]))
                 play_obj = wave_obj.play()
 
-        except:
-            continue
+        except KeyboardInterrupt:
+            break
 
+x = threading.Thread(target=serial_input)
 
-def serial_input():
-    ser = serial.Serial('COM3')
-    ser.flushInput()
-
+@app.before_first_request
+def startThread():
+    x.do_run = False
+    x.start()
     
+@app.route('/stop')
+def stopPlaying():
+    ser.flushInput()
+    print(x.isAlive())
+    x.do_run = False
+    print(x.isAlive())
+    return "stopped"
+
+@app.route("/<instrument>")
+def startNotes(instrument):
+    print(instrument)
+    ser.flushInput() 
+    x.do_run = True   
+    x.instrument = instrument
+    return "playing"
+
+
 
