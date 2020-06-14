@@ -47,26 +47,24 @@ xylophoneNotes = {
     "H": path + "C1_Drum.wav"
 }
 def serial_input():
-    t = threading.currentThread()
-    notes = []
     while True:
-        if(not getattr(t, "do_run")):
-            t.notes = notes
+        if(not getattr(x, "do_run")):
             continue
         try:
             ser_bytes = ser.readline()
             ser_bytes = ser_bytes.decode()
             ser_bytes.rstrip()
             ser_bytes = str(ser_bytes)
+            
             if(len(ser_bytes) >= 1):
                 ser_bytes = ser_bytes[0]
             else:
                 continue
-            instrument = getattr(t, "instrument", "Piano")
+            instrument = getattr(x, "instrument", "Piano")
             if(ser_bytes == "H"):
-                notes.append("C-5")
+                x.notes.append("C-5")
             else:
-                notes.append(ser_bytes)
+                x.notes.append(ser_bytes)
             if instrument == "Piano":
                 wave_obj = sa.WaveObject.from_wave_file(pianoNotes.get(ser_bytes[0]))
                 play_obj = wave_obj.play()  
@@ -89,26 +87,27 @@ def startThread():
     
 @app.route('/stop')
 def stopPlaying():
-    ser.flushInput()
     x.do_run = False
     n = getattr(x, "notes")
-    print(n)
     b = mingus.containers.Bar()
     track = mingus.containers.Track()
+    if(len(n) == 0): 
+        return "No file"
     for i in n:
         track.add_notes(i)
     trackString = lilypond.from_Track(track)
-    lilypond.to_png(trackString, "MasterPiece")
-    time.sleep(2)
-    return send_file('MasterPiece.png', mimetype='image/PNG') 
+    lilypond.to_png(trackString, "MasterPiece" + str(len(n)))
+    time.sleep(3)
+    filename = 'MasterPiece' + str(len(n)) + '.png'
+    return send_file(filename, mimetype='image/PNG') 
 
 @app.route("/<instrument>")
 def startNotes(instrument):
     print(instrument)
     ser.flushInput() 
     x.do_run = True   
-    x.notes = []
     x.instrument = instrument
+    x.notes = []
     return "playing"
 
 
