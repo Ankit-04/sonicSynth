@@ -97,7 +97,7 @@ function playClick() {
     }
     const instrument = instruments[this.c.currentSlide + 1];
 
-    fetch(`http://localhost:5000/${instrument}`)
+    fetch(`https://localhost:5000/${instrument}`)
 }
 
 

@@ -9,6 +9,19 @@ app.config["DEBUG"] = True
 def startNotes(instrument):
     print(instrument)
     path = "./Assets/Notes/"
+    
+    ser = serial.Serial('COM3')
+    ser.flushInput()
+
+    while True:
+        try:
+            ser_bytes = ser.readline()
+            ser_bytes = ser_bytes.decode()
+            print(ser_bytes)
+        except:
+            print("Keyboard Interrupt")
+            break
+
     pianoNotes = {
         "C4": path + "C.wav",
         "D4": path + "D.wav",
@@ -46,7 +59,7 @@ def startNotes(instrument):
         wave_obj = sa.WaveObject.from_wave_file(pianoNotes.get("C4"))
         play_obj = wave_obj.play()
         wave_obj = sa.WaveObject.from_wave_file(pianoNotes.get("D4"))
-        play_obj = wave_obj.play()
+        play_obj = wave_obj.play()     
     elif instrument == "Xylophone":
         wave_obj = sa.WaveObject.from_wave_file(xylophoneNotes.get("C4"))
         play_obj = wave_obj.play()
@@ -62,12 +75,5 @@ def serial_input():
     ser = serial.Serial('COM3')
     ser.flushInput()
 
-    while True:
-        try:
-            ser_bytes = ser.readline()
-            ser_bytes = ser_bytes.decode()
-            print(ser_bytes)
-        except:
-            print("Keyboard Interrupt")
-            break
+    
 
