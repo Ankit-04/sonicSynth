@@ -1,6 +1,8 @@
 from flask import Flask
 import simpleaudio as sa
 import serial
+import mingus.extra.lilypond as lilypond
+import mingus
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -40,6 +42,7 @@ def startNotes(instrument):
         "B4": path + "B_Drum.wav",
         "C5": path + "C1_Drum.wav",
     }
+    
 
     #Start reading serial
     if(instrument == "Piano"):
@@ -47,6 +50,15 @@ def startNotes(instrument):
         play_obj = wave_obj.play()
         wave_obj = sa.WaveObject.from_wave_file(pianoNotes.get("D4"))
         play_obj = wave_obj.play()
+
+        b = mingus.containers.Bar()
+        b + "C"
+        b + "D"
+        b + "E"
+        b + "F"
+
+        bar = lilypond.from_Bar(b)
+        lilypond.to_png(bar, "MyFirstBar")
     elif instrument == "Xylophone":
         wave_obj = sa.WaveObject.from_wave_file(xylophoneNotes.get("C4"))
         play_obj = wave_obj.play()
