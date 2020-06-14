@@ -60,7 +60,10 @@ def serial_input():
             else:
                 continue
             instrument = getattr(t, "instrument", "Piano")
-            notes.append(ser_bytes)
+            if(ser_bytes == "H"):
+                notes.append("C-5")
+            else:
+                notes.append(ser_bytes)
             if instrument == "Piano":
                 wave_obj = sa.WaveObject.from_wave_file(pianoNotes.get(ser_bytes[0]))
                 play_obj = wave_obj.play()  
@@ -84,11 +87,19 @@ def startThread():
 @app.route('/stop')
 def stopPlaying():
     ser.flushInput()
-    print(x.isAlive())
     x.do_run = False
     n = getattr(x, "notes")
-    print(n)
-    print(x.isAlive())
+    b = mingus.containers.Bar()
+    track = mingus.containers.Track()
+    counter = 0
+    for i in n:
+        b + i
+        counter += 1
+        if(counter == 4):
+            track.add_bar(b)
+            counter = 0
+    trackString = lilypond.from_Track(track)
+    lilypond.to_png(trackString, "MyFirstBar")
     return "stopped"
 
 @app.route("/<instrument>")
@@ -96,6 +107,7 @@ def startNotes(instrument):
     print(instrument)
     ser.flushInput() 
     x.do_run = True   
+    x.notes = []
     x.instrument = instrument
     return "playing"
 
