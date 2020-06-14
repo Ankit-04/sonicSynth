@@ -97,9 +97,12 @@ function playClick() {
     }
     const instrument = instruments[this.c.currentSlide + 1];
 
-    fetch(`https://localhost:5000/${instrument}`)
+    fetch(`http://localhost:5000/${instrument}`)
 }
 
+function stopPlaying(){
+    fetch(`http://localhost:5000/stop`);
+}
 
 $(function() {
     particlesJS("particles-js", {
