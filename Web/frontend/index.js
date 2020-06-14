@@ -100,6 +100,9 @@ function playClick() {
     fetch(`http://localhost:5000/${instrument}`)
 }
 
+function stopPlaying(){
+    fetch(`http://localhost:5000/stop`);
+}
 
 $(function() {
     particlesJS("particles-js", {

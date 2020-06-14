@@ -123,14 +123,14 @@ void instrument() {
       noteToSend = notes[6];
     }
     else if (interval * 7.5 < distance && distance <= interval * 8) {
-      noteToSend = notes[7];
+      noteToSend = "H";
     }
     else {
       noteToSend = "0";
     }
     if (noteToSend != "0" ) {
       Serial.println(noteToSend);
-      delay(100);
+      delay(500);
     }
   }
 }
