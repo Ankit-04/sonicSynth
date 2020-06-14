@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config["DEBUG"] = True
 
 path = "./Assets/Notes/"
-ser = serial.Serial('COM3')
+#ser = serial.Serial('COM3')
 
 pianoNotes = {
     "C": path + "C.wav",
@@ -91,14 +91,10 @@ def stopPlaying():
     n = getattr(x, "notes")
     b = mingus.containers.Bar()
     track = mingus.containers.Track()
-    counter = 0
     for i in n:
-        b + i
-        counter += 1
-        if(counter == 4):
-            track.add_bar(b)
-            counter = 0
+        track.add_notes(i)
     trackString = lilypond.from_Track(track)
+    lilypond.to_png(trackString, "MasterPiece")
     lilypond.to_png(trackString, "MyFirstBar")
     return "stopped"
 
@@ -113,3 +109,11 @@ def startNotes(instrument):
 
 
 
+def testingLilypond():
+    n = ["A", "B", "C","A", "B", "D","D", "D", "E","A", "B", "C","A", "B", "C","A", "B", "C","A", "B", "C","A", "B", "C", "C-5"]
+    b = mingus.containers.Bar()
+    track = mingus.containers.Track()
+    for i in n:
+        track.add_notes(i)
+    trackString = lilypond.from_Track(track)
+    lilypond.to_png(trackString, "MasterPiece")
