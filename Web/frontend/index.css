@@ -12,6 +12,204 @@
     background-size: cover;
 }
 
+.wrapper {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    opacity: 0.5;
+}
+
+.lines {
+    width: 5%;
+    height: 80px;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.line1 {
+    background-color: #b1e0ad;
+    animation: animate1 1.9s linear infinite;
+}
+
+.line2 {
+    background-color: #b1e0ad;
+    animation: animate2 2.1s linear infinite;
+}
+
+.line3 {
+    background-color: #b1e0ad;
+    animation: animate3 1.7s linear infinite;
+}
+
+.line4 {
+    background-color: #b1e0ad;
+    animation: animate4 2.5s linear infinite;
+}
+
+.line5 {
+    background-color: #b1e0ad;
+    animation: animate5 2.3s linear infinite;
+}
+
+.line6 {
+    background-color: #b1e0ad;
+    animation: animate6 1.8s linear infinite;
+}
+
+.line7 {
+    background-color: #b1e0ad;
+    animation: animate7 2.8s linear infinite;
+}
+
+.line8 {
+    background-color: #b1e0ad;
+    animation: animate8 2.7s linear infinite;
+}
+
+.line9 {
+    background-color: #b1e0ad;
+    animation: animate8 2.3s linear infinite;
+}
+
+.line10 {
+    background-color: #b1e0ad;
+    animation: animate9 1.5s linear infinite;
+}
+
+.line11 {
+    background-color: #b1e0ad;
+    animation: animate10 1.9s linear infinite;
+}
+
+.line12 {
+    background-color: #b1e0ad;
+    animation: animate9 1.4s linear infinite;
+}
+
+.line13 {
+    background-color: #b1e0ad;
+    animation: animate8 2.6s linear infinite;
+}
+
+.line14 {
+    background-color: #b1e0ad;
+    animation: animate7 2.2s linear infinite;
+}
+
+.line15 {
+    background-color: #b1e0ad;
+    animation: animate6 2.0s linear infinite;
+}
+
+.line16 {
+    background-color: #b1e0ad;
+    animation: animate4 1.9s linear infinite;
+}
+
+.line17 {
+    background-color: #b1e0ad;
+    animation: animate5 1.3s linear infinite;
+}
+
+.line18 {
+    background-color: #b1e0ad;
+    animation: animate3 2.9s linear infinite;
+}
+
+.line19 {
+    background-color: #b1e0ad;
+    animation: animate1 1.8s linear infinite;
+}
+
+.line20 {
+    background-color: #b1e0ad;
+    animation: animate2 2.1s linear infinite;
+}
+
+@keyframes animate1 {
+    50% {
+        background-color: #2eb2c9;
+        opacity: 0.5;
+        height: 500px;
+    }
+}
+
+@keyframes animate2 {
+    50% {
+        background-color: #2eb2c9;
+        opacity: 0.5;
+        height: 350px;
+    }
+}
+
+@keyframes animate3 {
+    50% {
+        background-color: #2eb2c9;
+        opacity: 0.6;
+        height: 250px;
+    }
+}
+
+@keyframes animate4 {
+    50% {
+        background-color: #2eb2c9;
+        opacity: 0.5;
+        height: 400px;
+    }
+}
+
+@keyframes animate5 {
+    50% {
+        background-color: #2eb2c9;
+        opacity: 0.7;
+        height: 600px;
+    }
+}
+
+@keyframes animate6 {
+    50% {
+        background-color: #2eb2c9;
+        opacity: 0.5;
+        height: 550px;
+    }
+}
+
+@keyframes animate7 {
+    50% {
+        background-color: #2eb2c9;
+        opacity: 0.6;
+        height: 280px;
+    }
+}
+
+@keyframes animate8 {
+    50% {
+        background-color: #2eb2c9;
+        opacity: 0.9;
+        height: 500px;
+    }
+}
+
+@keyframes animate9 {
+    50% {
+        background-color: #2eb2c9;
+        opacity: 0.8;
+        height: 200px;
+    }
+}
+
+@keyframes animate10 {
+    50% {
+        background-color: #2eb2c9;
+        opacity: 0.7;
+        height: 300px;
+    }
+}
+
 .title {
     padding-left: 2vw;
     height: 10vh;
