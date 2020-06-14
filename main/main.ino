@@ -1,12 +1,12 @@
 #include <LiquidCrystal.h>
 #include "pitches.h"
 
-const int trigPin = 11;
-const int echoPin = 12;
+const int trigPin = A1;
+const int echoPin = A0;
 long duration;
 int distance;
 
-const int buzzer = 10;
+const int buzzer = A5;
 const int delayTime = 130;
 const int interval = 7;
 int noteToPlay;
@@ -16,8 +16,8 @@ const int button = 2;
 int index = 0;
 
 
-int melody[] = {NOTE_E4, NOTE_E4, 0, NOTE_E4 , 0, NOTE_C4, NOTE_E4, NOTE_G4, 0, NOTE_G3};
-int noteDurations[] = { 8, 8, 8, 8, 8, 8, 4, 4, 4, 4};
+int melody[] = {/*NOTE_E4, NOTE_F4,NOTE_G4,NOTE_C5, 0,NOTE_AS4, NOTE_AS4, NOTE_A4, NOTE_G4,0, */NOTE_AS4,NOTE_AS4,NOTE_A4,NOTE_A4,NOTE_G4,NOTE_G4, NOTE_A4, 0, NOTE_C4, 0, NOTE_C4, 0, NOTE_C4};
+int noteDurations[] = { /*4, 8, 4, 8, 2, 4, 8, 4, 8, 2,*/ 4, 8, 4, 8, 4, 8, 8, 6, 6, 6, 6, 6, 6};
 
 int note[8] = {NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_A4, NOTE_B4, NOTE_C5};
 String notes[8] = {"C4","D4","E4","F4","G4","A4","B4","C5"};
@@ -39,7 +39,7 @@ void setup() {
   lcd.setCursor(0, 1);
   lcd.print(mode[index]);
 
-  for (int thisNote = 0; thisNote < 10; thisNote++) {
+  for (int thisNote = 0; thisNote < 13; thisNote++) {
 
     int noteDuration = 1000 / noteDurations[thisNote];
     tone(buzzer, melody[thisNote], noteDuration);
